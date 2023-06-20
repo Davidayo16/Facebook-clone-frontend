@@ -162,7 +162,7 @@ const Home = () => {
                 <div className="home-top">
                   <div className="d-flex home-top-item gap-3">
                     <img
-                      src="/images/user-img.jpg"
+                      src="/images/user-img.JPG"
                       className="img-fluid header-right-img"
                     />
                     <input type="text" placeholder="Whats on your mind David" />
@@ -391,7 +391,7 @@ const Home = () => {
                           src="/images/seid.jpg"
                           className="img-fluid sidebar-left-img"
                         />
-                        <span>Ikeoba Pius</span>
+                        <span>Ahmed Seidhat</span>
                         <span>5 mins ago</span>
                       </div>
                       <MoreVertRoundedIcon
@@ -406,7 +406,7 @@ const Home = () => {
                     </div>
                     <h6 className="mb-0 mt-3">Love for all, Hatred for none</h6>
                     <img
-                      src="/images/post1.png"
+                      src="/images/post1.PNG"
                       className="img-fluid w-100 mt-3 imm"
                     />
                     <div className="d-flex justify-content-between home-post-strip">
