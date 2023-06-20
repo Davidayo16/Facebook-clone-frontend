@@ -80,7 +80,7 @@ const Header = () => {
                 className="message-notic"
               />
               <img
-                src="/images/user-img.jpg"
+                src="/images/user-img.JPG"
                 className="img-fluid header-right-img"
               />
             </div>

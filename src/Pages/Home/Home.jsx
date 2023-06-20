@@ -33,7 +33,7 @@ const Home = () => {
                   <Link to={"/profile"}>
                     <li className="d-flex align-items-center mb-2 gap-3">
                       <img
-                        src="/images/user-img.jpg"
+                        src="/images/user-img.JPG"
                         className="img-fluid sidebar-left-img"
                       />
                       <span>David Odimayo</span>
@@ -122,7 +122,7 @@ const Home = () => {
                 <div className="d-flex align-items-center gap-3 mt-4">
                   <div className="online-dot-container">
                     <img
-                      src="/images/ney.png"
+                      src="/images/ney.PNG"
                       className="img-fluid profile-friends-img"
                     />
                   </div>
@@ -208,7 +208,7 @@ const Home = () => {
                     <div className="d-flex justify-content-between">
                       <div className="d-flex gap-3 align-items-center">
                         <img
-                          src="/images/user-img.jpg"
+                          src="/images/pius.jpg"
                           className="img-fluid sidebar-left-img"
                         />
                         <span>Ikeoba Pius</span>
@@ -226,7 +226,7 @@ const Home = () => {
                     </div>
                     <h6 className="mb-0 mt-3">Love for all, Hatred for none</h6>
                     <img
-                      src="/images/post3.jpg"
+                      src="/images/post3.JPG"
                       className="img-fluid w-100 mt-3 imm"
                     />
                     <div className="d-flex justify-content-between home-post-strip">
@@ -298,10 +298,10 @@ const Home = () => {
                     <div className="d-flex justify-content-between">
                       <div className="d-flex gap-3 align-items-center">
                         <img
-                          src="/images/user-img.jpg"
+                          src="/images/ney.PNG"
                           className="img-fluid sidebar-left-img"
                         />
-                        <span>Ikeoba Pius</span>
+                        <span>Neymar Jr</span>
                         <span>5 mins ago</span>
                       </div>
                       <MoreVertRoundedIcon
@@ -314,9 +314,9 @@ const Home = () => {
                         className="dot-icon"
                       />
                     </div>
-                    <h6 className="mb-0 mt-3">Love for all, Hatred for none</h6>
+                    <h6 className="mb-0 mt-3">What a great game today </h6>
                     <img
-                      src="/images/post2.jpg"
+                      src="/images/post2.JPG"
                       className="img-fluid w-100 mt-3 imm"
                     />
                     <div className="d-flex justify-content-between home-post-strip">
@@ -388,7 +388,7 @@ const Home = () => {
                     <div className="d-flex justify-content-between">
                       <div className="d-flex gap-3 align-items-center">
                         <img
-                          src="/images/user-img.jpg"
+                          src="/images/seid.jpg"
                           className="img-fluid sidebar-left-img"
                         />
                         <span>Ikeoba Pius</span>
@@ -503,7 +503,7 @@ const Home = () => {
                 <div className="d-flex align-items-center gap-3 mt-4">
                   <div className="online-dot-container">
                     <img
-                      src="/images/friend1.png"
+                      src="/images/friend1.PNG"
                       className="img-fluid profile-friends-img"
                     />
                     <span></span>
@@ -513,7 +513,7 @@ const Home = () => {
                 <div className="d-flex align-items-center gap-3 mt-4">
                   <div className="online-dot-container">
                     <img
-                      src="/images/ney.png"
+                      src="/images/ney.PNG"
                       className="img-fluid profile-friends-img"
                     />
                     <span></span>
@@ -539,7 +539,7 @@ const Home = () => {
                 </div>
                 <div className="d-flex align-items-center gap-3 mt-4">
                   <div className="online-dot-container">
-                    <img src="/images/user-img.jpg" className="img-fluid" />
+                    <img src="/images/user-img.JPG" className="img-fluid" />
                     <span></span>
                   </div>
                   <h6>David Beckham</h6>
@@ -547,7 +547,7 @@ const Home = () => {
                 <div className="d-flex align-items-center gap-3 mt-4">
                   <div className="online-dot-container">
                     <img
-                      src="/images/ney.png"
+                      src="/images/ney.PNG"
                       className="img-fluid profile-friends-img"
                     />
                     <span></span>
