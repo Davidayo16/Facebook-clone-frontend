@@ -33,7 +33,7 @@ const Profile = () => {
                   {/* <Link to="/profile"> */}
                   <li className="d-flex align-items-center mb-2 gap-3">
                     <img
-                      src="/images/user-img.jpg"
+                      src="/images/user-img.JPG"
                       className="img-fluid sidebar-left-img"
                     />
                     <span>David Odimayo</span>
