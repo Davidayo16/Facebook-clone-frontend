@@ -112,31 +112,41 @@ const Profile = () => {
                 <div className="underline"></div>
                 <div className="d-flex align-items-center gap-3 mt-4">
                   <div className="online-dot-container">
-                    <img src="/images/pius.jpg" className="img-fluid" />
-                    <span></span>
+                    <img
+                      src="/images/friend2.jpg"
+                      className="img-fluid profile-friends-img"
+                    />
                   </div>
-                  <h6>Ikeoba pius</h6>
+                  <h6>Elon Musk</h6>
                 </div>
                 <div className="d-flex align-items-center gap-3 mt-4">
                   <div className="online-dot-container">
-                    <img src="/images/pius.jpg" className="img-fluid" />
-                    <span></span>
+                    <img
+                      src="/images/ney.PNG"
+                      className="img-fluid profile-friends-img"
+                    />
                   </div>
-                  <h6>Ikeoba pius</h6>
+                  <h6>Neymar Jr</h6>
                 </div>
                 <div className="d-flex align-items-center gap-3 mt-4">
                   <div className="online-dot-container">
-                    <img src="/images/pius.jpg" className="img-fluid" />
+                    <img
+                      src="/images/friend2.jpg"
+                      className="img-fluid profile-friends-img"
+                    />
                     <span></span>
                   </div>
-                  <h6>Ikeoba pius</h6>
+                  <h6>Elon Musk</h6>
                 </div>
                 <div className="d-flex align-items-center gap-3 mt-4">
                   <div className="online-dot-container">
-                    <img src="/images/pius.jpg" className="img-fluid" />
+                    <img
+                      src="/images/friend3.jfif"
+                      className="img-fluid profile-friends-img"
+                    />
                     <span></span>
                   </div>
-                  <h6>Ikeoba pius</h6>
+                  <h6>Tony Elumelu</h6>
                 </div>
                 <div className="d-flex align-items-center gap-3 mt-4">
                   <div className="online-dot-container">
@@ -154,7 +164,7 @@ const Profile = () => {
                   className="img-fluid w-100 cover-img"
                 />
                 <img
-                  src="/images/user-img.jpg"
+                  src="/images/user-img.JPG"
                   className="img-fluid cover-user-img"
                 />
               </div>
@@ -168,7 +178,7 @@ const Profile = () => {
                     <div className="home-top">
                       <div className="d-flex home-top-item gap-3">
                         <img
-                          src="/images/user-img.jpg"
+                          src="/images/user-img.JPG"
                           className="img-fluid header-right-img"
                         />
                         <input
@@ -217,7 +227,7 @@ const Profile = () => {
                         <div className="d-flex justify-content-between">
                           <div className="d-flex gap-3 align-items-center">
                             <img
-                              src="/images/user-img.jpg"
+                              src="/images/user-img.JPG"
                               className="img-fluid sidebar-left-img"
                             />
                             <span>David Odimayo</span>
@@ -237,7 +247,7 @@ const Profile = () => {
                           Love for all, Hatred for none
                         </h6>
                         <img
-                          src="/images/post3.png"
+                          src="/images/post3.PNG"
                           className="img-fluid w-100 mt-3 imm"
                         />
                         <div className="d-flex justify-content-between home-post-strip">
@@ -336,21 +346,21 @@ const Profile = () => {
                         src="/images/seid.jpg"
                         className="img-fluid profile-friends-img"
                       />
-                      <h6>Ikeoba Pius</h6>
+                      <h6>Ahmed Seidhat</h6>
                     </div>
                     <div className="col-4">
                       <img
-                        src="/images/ney.png"
+                        src="/images/ney.PNG"
                         className="img-fluid profile-friends-img"
                       />
                       <h6>Neymar Jr</h6>
                     </div>
                     <div className="col-4 mt-3">
                       <img
-                        src="/images/friend1.png"
+                        src="/images/friend1.PNG"
                         className="img-fluid profile-friends-img"
                       />
-                      <h6>Ikeoba Pius</h6>
+                      <h6>Steve Jobs</h6>
                     </div>
                     <div className="col-4 mt-3">
                       <img
