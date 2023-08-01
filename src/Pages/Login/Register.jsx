@@ -3,35 +3,29 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "./login.css";
 import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
-import { login } from "./../../Redux/Action/UserAction";
+import { login, register } from "./../../Redux/Action/UserAction";
 import { useSelector, useDispatch } from "react-redux";
 import Loading from "../../Components/Loading/Error/Loading";
 import Message from "./../../Components/Loading/Error/Error";
-
-const Login = () => {
-  const history = useNavigate();
-  const location = useLocation();
-  const dispatch = useDispatch();
+const Register = () => {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-
+  const history = useNavigate();
+  const location = useLocation();
   const redirect = location.search ? location.search.split("=")[1] : "/";
-
-  const handleLogin = (e) => {
+  const dispatch = useDispatch();
+  const handleRegister = (e) => {
     e.preventDefault();
-    dispatch(login(email, password));
+    dispatch(register(name, email, password));
   };
-
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo, loading, error } = userLogin;
-
+  const userRegister = useSelector((state) => state.userRegister);
+  const { userInfo, loading, error } = userRegister;
   React.useEffect(() => {
     if (userInfo) {
       history(redirect);
     }
   }, [history, userInfo, redirect]);
-
   return (
     <>
       <div className="login-wrapper py-5">
@@ -41,25 +35,36 @@ const Login = () => {
               <img src="/images/facebook-7.png" className="img-fluid" />
             </div>
             <div className="col-md-6 col-12 d-md-block d-none ">
-              <img src="/images/log.png" className="img-fluid" />
+              <img src="/images/reg.png" className="img-fluid" />
             </div>
             <div className="col-md-6 col-12 mt-3">
               <div className="login-container">
                 <div className="login-card">
                   <div className="header-logo m-auto">
-                    <FacebookRoundedIcon
-                      style={{
-                        color: "rgb(25, 154, 177)",
-                        fontSize: "3.5rem",
-                      }}
-                      className="m-auto"
-                    />
+                    <div className="header-logo m-auto">
+                      <FacebookRoundedIcon
+                        style={{
+                          color: "rgb(25, 154, 177)",
+                          fontSize: "3.5rem",
+                        }}
+                        className="m-auto"
+                      />
+                    </div>
                   </div>
-                  <h2 className="text-center">Login</h2>
 
+                  <h2 className="text-center">Register</h2>
                   {error && <Message variant="danger">{error}</Message>}
-                  <form onSubmit={(e) => handleLogin(e)}>
+                  <form onSubmit={(e) => handleRegister(e)}>
                     <div className="login-input">
+                      <div className="mb-4">
+                        <label className="mb-2">Enter name</label>
+                        <input
+                          type="text"
+                          value={name}
+                          required={true}
+                          onChange={(e) => setName(e.target.value)}
+                        />
+                      </div>
                       <div>
                         <label className="mb-2">Enter email</label>
                         <input
@@ -79,22 +84,20 @@ const Login = () => {
                         />
                       </div>
                     </div>
-
                     <button
                       className="login-btn mb-4 d-flex justify-content-center align-items-center"
-                      disabled={loading || !email || !password}
+                      disabled={loading || !email || !password || !name}
                     >
                       {loading ? (
                         <>
-                          <span>signing in</span> <Loading />
+                          <span>signing up</span> <Loading />
                         </>
                       ) : (
                         <span>Submit</span>
                       )}
                     </button>
-
                     <p className="text-center">
-                      Not a member yet? <Link to={"/register"}>Register</Link>
+                      Already a member? <Link to={"/login"}>Login</Link>
                     </p>
                   </form>
                 </div>
@@ -107,4 +110,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

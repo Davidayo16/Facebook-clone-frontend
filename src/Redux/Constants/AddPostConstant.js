@@ -1,0 +1,2 @@
+export const IS_POST_ACTIVE = "POST_ACTIVE";
+export const POST_NOT_ACTIVE = "POST_NOT_ACTIVE";

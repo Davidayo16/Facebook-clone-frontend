@@ -1,381 +1,351 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./profile.css";
-import PeopleRoundedIcon from "@mui/icons-material/PeopleRounded";
-import FeedbackRoundedIcon from "@mui/icons-material/FeedbackRounded";
-import Groups2RoundedIcon from "@mui/icons-material/Groups2Rounded";
-import MessageRoundedIcon from "@mui/icons-material/MessageRounded";
-import StorefrontRoundedIcon from "@mui/icons-material/StorefrontRounded";
-import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
-import OndemandVideoRoundedIcon from "@mui/icons-material/OndemandVideoRounded";
-import BookmarkRoundedIcon from "@mui/icons-material/BookmarkRounded";
-import SportsEsportsRoundedIcon from "@mui/icons-material/SportsEsportsRounded";
 import VideocamRoundedIcon from "@mui/icons-material/VideocamRounded";
 import PhotoLibraryRoundedIcon from "@mui/icons-material/PhotoLibraryRounded";
-import InsertEmoticonRoundedIcon from "@mui/icons-material/InsertEmoticonRounded";
-import MoreVertRoundedIcon from "@mui/icons-material/MoreVertRounded";
-import MoodRoundedIcon from "@mui/icons-material/MoodRounded";
-import ThumbUpRoundedIcon from "@mui/icons-material/ThumbUpRounded";
-import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
-import ChatBubbleRoundedIcon from "@mui/icons-material/ChatBubbleRounded";
-import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
-import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { getFriends, getUserDetails } from "../../Redux/Action/UserAction";
+import { getUserPost, likeAndUnlikePost } from "../../Redux/Action/PostAction";
+import moment from "moment";
+import ProfileFeed from "../../Components/ProfileFeed";
+import Side from "../../Components/Side/Side";
+import { IS_POST_ACTIVE } from "../../Redux/Constants/AddPostConstant";
+import AddPost from "../../Components/AddPosts/AddPost";
+import EditIcon from "@mui/icons-material/Edit";
+import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import EditProfile from "../../Components/EditProfile/EditProfile";
+import SkeletonComments from "../../Components/SkeletonComponents/SkeletonComments/SkeletonComments";
+import Skeleton from "react-loading-skeleton";
+import SkeletonOnlineFriends from "../../Components/SkeletonComponents/SkeletonOnlineFriends/SkeletonOnlineFriends";
 
 const Profile = () => {
+  // Navigation and dispatch
+  const history = useNavigate();
+  const location = useLocation();
+  const dispatch = useDispatch();
+
+  // Get user ID from URL
+  const id = window.location.pathname.split("/")[2];
+
+  // Redux state
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo, error } = userLogin;
+
+  const usersPost = useSelector((state) => state.usersPost);
+  const { posts, loading } = usersPost;
+
+  // State for handling likes
+  const [like, setLike] = useState(posts?.likes?.length);
+  const [isLiked, setIsLiked] = useState(false);
+
+  // Check if the current user has liked the posts
+  useEffect(() => {
+    setIsLiked(posts?.likes?.includes(userInfo?._id));
+  }, [userInfo?._id, posts?.likes]);
+
+  // Handler for liking/unliking a post
+  const likeHandler = (id) => {
+    dispatch(likeAndUnlikePost(id));
+    setLike((prevLike) => (isLiked ? prevLike - 1 : prevLike + 1));
+    setIsLiked(!isLiked);
+  };
+
+  // Get user details on component mount and whenever the user ID changes
+  useEffect(() => {
+    dispatch(getUserDetails(id));
+  }, [dispatch, id, userInfo]);
+
+  // Retrieve user details from the Redux store
+  const userDetails = useSelector((state) => state.userDetails);
+  const { user, loading: loadingDetails } = userDetails;
+
+  const listFriends = useSelector((state) => state.listFriends);
+  const { friends, loading: loadingFriends } = listFriends;
+
+  // Fetch user's friends on component mount and whenever the user ID changes
+  useEffect(() => {
+    dispatch(getFriends(id));
+  }, [dispatch, id]);
+
+  // Fetch user's posts on component mount and whenever the user ID changes
+  useEffect(() => {
+    dispatch(getUserPost(id));
+  }, [dispatch, id, userInfo]);
+
+  // Open the add post section
+  const openPost = () => {
+    dispatch({ type: IS_POST_ACTIVE });
+  };
+
+  // State for controlling profile edit modal
+  const [isProfileActive, setProfileActive] = useState(false);
+
   return (
     <>
       <section className="home-wrapper">
         <div className="container-xxl">
           <div className="row">
-            <div className="col-3 sidebar py-4">
-              <div>
-                <ul className="px-0">
-                  {/* <Link to="/profile"> */}
-                  <li className="d-flex align-items-center mb-2 gap-3">
-                    <img
-                      src="/images/user-img.JPG"
-                      className="img-fluid sidebar-left-img"
-                    />
-                    <span>David Odimayo</span>
-                  </li>
-                  {/* </Link> */}
-                  <li className="d-flex align-items-center mb-3 gap-3">
-                    <PeopleRoundedIcon
-                      style={{ fontSize: "1.8rem", color: "rgb(25, 154, 177)" }}
-                    />
-                    <span>Friends</span>
-                  </li>
-                  <li className="d-flex align-items-center mb-3 gap-3">
-                    <FeedbackRoundedIcon
-                      style={{ fontSize: "1.8rem", color: "rgb(25, 154, 177)" }}
-                    />
-                    <span>Feeds (Most Recent)</span>
-                  </li>
-                  <li className="d-flex align-items-center mb-3 gap-3">
-                    <Groups2RoundedIcon
-                      style={{
-                        fontSize: "1.8rem",
-                        background: "rgb(25, 154, 177)",
-                        color: "white",
-                        padding: "3px",
-                        borderRadius: "50%",
-                      }}
-                    />
-                    <span>Groups</span>
-                  </li>
-                  <li className="d-flex align-items-center mb-3 gap-3">
-                    <MessageRoundedIcon
-                      style={{ fontSize: "1.8rem", color: "rgb(25, 154, 177)" }}
-                    />
-                    <span>Messanger</span>
-                  </li>
-                  <li className="d-flex align-items-center mb-3 gap-3">
-                    <StorefrontRoundedIcon
-                      style={{ fontSize: "1.8rem", color: "rgb(25, 154, 177)" }}
-                    />
-                    <span>Marketplace</span>
-                  </li>
-                  <li className="d-flex align-items-center mb-3 gap-3">
-                    <OndemandVideoRoundedIcon
-                      style={{ fontSize: "1.8rem", color: "rgb(25, 154, 177)" }}
-                    />
-                    <span>Watch</span>
-                  </li>
-                  <li className="d-flex align-items-center mb-3 gap-3">
-                    <BookmarkRoundedIcon
-                      style={{
-                        fontSize: "1.8rem",
-                        color: "rgb(25, 154, 177)",
-                      }}
-                    />
-                    <span>Saved</span>
-                  </li>
-                  <li className="d-flex align-items-center mb-3 gap-3">
-                    <SportsEsportsRoundedIcon
-                      style={{ fontSize: "1.8rem", color: "rgb(25, 154, 177)" }}
-                    />
-                    <span>Gaming video</span>
-                  </li>
+            <EditProfile
+              id={id}
+              user={user}
+              isProfileActive={isProfileActive}
+              setProfileActive={setProfileActive}
+            />
+            <Side />
+            <AddPost />
 
-                  <li className="d-flex align-items-center mb-3 gap-3">
-                    <KeyboardArrowDownRoundedIcon
-                      style={{
-                        fontSize: "1.3rem",
-                        color: "black",
-                        background: " rgb(238, 238, 238)",
-                        borderRadius: "50%",
-                      }}
-                    />
-                    <span>See less</span>
-                  </li>
-                </ul>
-                <div className="underline"></div>
-                <div className="d-flex align-items-center gap-3 mt-4">
-                  <div className="online-dot-container">
+            <div className="col-lg-9 col-12">
+              <div className="cover-containerr">
+                {loadingDetails ? (
+                  <Skeleton
+                    className="img-fluid w-100 cover-imgg"
+                    height={250}
+                    width={150}
+                    baseColor="white"
+                  />
+                ) : (
+                  <img
+                    src={
+                      user?.user?.coverPicture
+                        ? user?.user?.coverPicture
+                        : "/images/cd.jpg"
+                    }
+                    className="img-fluid w-100 cover-imgg"
+                  />
+                )}
+
+                {loadingDetails ? (
+                  <Skeleton
+                    className="cover-user-imgg"
+                    width={100}
+                    height={100}
+                    baseColor="white"
+                  />
+                ) : (
+                  <div className="cover-user-imgg">
                     <img
-                      src="/images/friend2.jpg"
-                      className="img-fluid profile-friends-img"
+                      src={
+                        user?.user?.profilePicture
+                          ? user?.user?.profilePicture
+                          : "/images/ava.png"
+                      }
+                      className="img-fluid "
                     />
+                    <div
+                      className="change-photo"
+                      onClick={() => setProfileActive(true)}
+                    >
+                      <AddAPhotoIcon />
+                    </div>
                   </div>
-                  <h6>Elon Musk</h6>
-                </div>
-                <div className="d-flex align-items-center gap-3 mt-4">
-                  <div className="online-dot-container">
-                    <img
-                      src="/images/ney.PNG"
-                      className="img-fluid profile-friends-img"
-                    />
-                  </div>
-                  <h6>Neymar Jr</h6>
-                </div>
-                <div className="d-flex align-items-center gap-3 mt-4">
-                  <div className="online-dot-container">
-                    <img
-                      src="/images/friend2.jpg"
-                      className="img-fluid profile-friends-img"
-                    />
-                    <span></span>
-                  </div>
-                  <h6>Elon Musk</h6>
-                </div>
-                <div className="d-flex align-items-center gap-3 mt-4">
-                  <div className="online-dot-container">
-                    <img
-                      src="/images/friend3.jfif"
-                      className="img-fluid profile-friends-img"
-                    />
-                    <span></span>
-                  </div>
-                  <h6>Tony Elumelu</h6>
-                </div>
-                <div className="d-flex align-items-center gap-3 mt-4">
-                  <div className="online-dot-container">
-                    <img src="/images/pius.jpg" className="img-fluid" />
-                    <span></span>
-                  </div>
-                  <h6>Ikeoba pius</h6>
-                </div>
+                )}
               </div>
-            </div>
-            <div className="col-9">
-              <div className="cover-container">
-                <img
-                  src="/images/cover.jpg"
-                  className="img-fluid w-100 cover-img"
-                />
-                <img
-                  src="/images/user-img.JPG"
-                  className="img-fluid cover-user-img"
-                />
+              <div className="text-centerr">
+                {loadingDetails ? (
+                  <Skeleton width={150} baseColor="white" />
+                ) : (
+                  <h4>{user?.user?.name}</h4>
+                )}
+                {loadingDetails ? (
+                  <Skeleton width={150} baseColor="white" />
+                ) : (
+                  <h6>{user?.user?.desc}</h6>
+                )}
               </div>
-              <div className="text-center mt-5">
-                <h4>David Odimayo</h4>
-                <h6>Hello world!</h6>
-              </div>
-              <div className="row">
-                <div className="col-7 py-4 d-flex flex-column align-items-center">
+              <div className="row d-flex profile-cont">
+                <div className="col-sm-7 py-4 d-flex flex-column  align-items-center">
                   <div className="home-container w-100">
                     <div className="home-top">
                       <div className="d-flex home-top-item gap-3">
-                        <img
-                          src="/images/user-img.JPG"
-                          className="img-fluid header-right-img"
-                        />
-                        <input
-                          type="text"
-                          placeholder="Whats on your mind David"
-                        />
+                        {loading ? (
+                          <Skeleton
+                            circle={true}
+                            height={40}
+                            width={40}
+                            className="img-fluid header-right-img"
+                          />
+                        ) : (
+                          <img
+                            src={
+                              userInfo?.profilePicture
+                                ? userInfo?.profilePicture
+                                : "/images/ava.png"
+                            }
+                            className="img-fluid header-right-img"
+                          />
+                        )}
+
+                        <div className="w-100  mind" onClick={openPost}>
+                          {loading ? (
+                            <Skeleton />
+                          ) : (
+                            <p className="mb-0">
+                              What's on your mind, {userInfo?.name}?
+                            </p>
+                          )}
+                        </div>
                       </div>
                       <div className="d-flex align-items-center justify-content-between px-4">
-                        <div className="d-flex align-items-center mb-4 gap-2 home-item-bottom">
-                          <VideocamRoundedIcon
-                            style={{
-                              fontSize: "2rem",
-                              color: "red",
-
-                              borderRadius: "50%",
-                            }}
+                        {loading ? (
+                          <Skeleton
+                            className="d-flex align-items-center mb-4 gap-2 home-item-bottom"
+                            width={100}
                           />
-                          <span>Gaming video</span>
-                        </div>
-                        <div className="d-flex align-items-center mb-4 gap-2 home-item-bottom">
-                          <PhotoLibraryRoundedIcon
-                            style={{
-                              fontSize: "2rem",
-                              color: "green",
+                        ) : (
+                          <div className="d-flex align-items-center mb-4 gap-2 home-item-bottom">
+                            <VideocamRoundedIcon
+                              style={{
+                                fontSize: "2rem",
+                                color: "red",
 
-                              borderRadius: "50%",
-                            }}
-                          />
-                          <span>Photo/Video</span>
-                        </div>
-                        <div className="d-flex align-items-center mb-4 gap-2 home-item-bottom">
-                          <MoodRoundedIcon
-                            style={{
-                              fontSize: "2rem",
-                              color: "rgb(236, 178, 18)",
+                                borderRadius: "50%",
+                              }}
+                            />
+                            <span>Gaming</span>
+                          </div>
+                        )}
 
-                              borderRadius: "50%",
-                            }}
+                        {loading ? (
+                          <Skeleton
+                            width={100}
+                            className="d-flex align-items-center mb-4 gap-2 home-item-bottom"
                           />
-                          <span>Feeling/activity</span>
-                        </div>
+                        ) : (
+                          <div
+                            className="d-flex align-items-center mb-4 gap-2 home-item-bottom"
+                            onClick={openPost}
+                          >
+                            <PhotoLibraryRoundedIcon
+                              style={{
+                                fontSize: "2rem",
+                                color: "green",
+
+                                borderRadius: "50%",
+                              }}
+                            />
+                            <span>Photo/Video</span>
+                          </div>
+                        )}
                       </div>
                     </div>
-                    <div className="mt-3">
-                      <div className="home-body mt-3">
-                        <div className="d-flex justify-content-between">
-                          <div className="d-flex gap-3 align-items-center">
-                            <img
-                              src="/images/user-img.JPG"
-                              className="img-fluid sidebar-left-img"
-                            />
-                            <span>David Odimayo</span>
-                            <span>5 mins ago</span>
+
+                    <>
+                      {loading && (
+                        <div>
+                          <SkeletonComments />
+                          <SkeletonComments />
+                          <SkeletonComments />
+                        </div>
+                      )}
+                      {posts?.length === 0 ? (
+                        <div className="dum-post mt-2">
+                          <div className="first-img">
+                            <img className="img-fluid" src="/images/wel.png" />
                           </div>
-                          <MoreVertRoundedIcon
-                            style={{
-                              fontSize: "2rem",
-                              color: "black",
-                              borderRadius: "50%",
-                              cursor: "pointer",
-                            }}
-                            className="dot-icon"
+                          <div className="first-div">
+                            <button
+                              className="first-post-btn"
+                              onClick={openPost}
+                            >
+                              Add your first post
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        posts?.map((post) => (
+                          <ProfileFeed
+                            post={post}
+                            id={post?.userId}
+                            key={post._id}
+                            userId={userInfo?._id}
                           />
-                        </div>
-                        <h6 className="mb-0 mt-3">
-                          Love for all, Hatred for none
-                        </h6>
-                        <img
-                          src="/images/post3.PNG"
-                          className="img-fluid w-100 mt-3 imm"
-                        />
-                        <div className="d-flex justify-content-between home-post-strip">
-                          <div className="d-flex gap-2 align-items-center">
-                            <div>
-                              <ThumbUpRoundedIcon
-                                style={{
-                                  fontSize: "1.4rem",
-                                  color: "white",
-                                  borderRadius: "50%",
-                                  background: "blue",
-                                  padding: "3px",
-                                }}
-                              />
-                              <FavoriteRoundedIcon
-                                style={{
-                                  fontSize: "1.4rem",
-                                  color: "white",
-                                  borderRadius: "50%",
-                                  background: "red",
-                                  padding: "3px",
-                                }}
-                              />
-                            </div>
-                            <span>125 people liked</span>
-                          </div>
-                          <span>345 comments</span>
-                        </div>
-                        <div className="d-flex justify-content-between align-items-center mt-2 px-5">
-                          <div className="d-flex align-items-center  home-post-lcs">
-                            <ThumbUpOffAltIcon
-                              style={{
-                                fontSize: "2rem",
-                                color: "black",
-                                borderRadius: "50%",
-                                //   background: "blue",
-                                padding: "3px",
-                              }}
-                            />
-                            <span>Like</span>
-                          </div>
-                          <div className="d-flex align-items-center  home-post-lcs">
-                            <ChatBubbleOutlineIcon
-                              style={{
-                                fontSize: "2rem",
-                                color: "black",
-                                borderRadius: "50%",
-                                //   background: "blue",
-                                padding: "3px",
-                              }}
-                            />
-                            <span>Comment</span>
-                          </div>
-                          <div className="d-flex align-items-center home-post-lcs">
-                            <ReplyOutlinedIcon
-                              style={{
-                                fontSize: "2rem",
-                                color: "black",
-                                borderRadius: "50%",
-                                //   background: "blue",
-                                padding: "3px",
-                              }}
-                            />
-                            <span>Comment</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                        ))
+                      )}
+                    </>
                   </div>
                 </div>
-                <div className="col-5 py-4 home-right">
+                <div className="col-sm-5 col-12 py-4 prof home-right">
                   <h5 className="bold">User Information</h5>
                   <div>
-                    <h6 className="bold mb-3 mt-3">
-                      City: <span>Abuja</span>
-                    </h6>
-                    <h6 className="bold mb-3">
-                      From: <span>Nigeria</span>
-                    </h6>
-                    <h6 className="bold">
-                      Relationship: <span>Single</span>
-                    </h6>
+                    {loadingDetails ? (
+                      <Skeleton className="bold mb-3 mt-3" width={100} />
+                    ) : (
+                      <h6 className="bold mb-3 mt-3">
+                        City:{" "}
+                        <span>
+                          {user?.user?.city ? user?.user?.city : "No city"}
+                        </span>
+                      </h6>
+                    )}
+                    {loadingDetails ? (
+                      <Skeleton className="bold mb-3 mt-3" width={100} />
+                    ) : (
+                      <h6 className="bold mb-3">
+                        From:{" "}
+                        <span>
+                          {user?.user?.from ? user?.user?.from : "No country"}
+                        </span>
+                      </h6>
+                    )}
+                    {loadingDetails ? (
+                      <Skeleton className="bold mb-3 mt-3" width={100} />
+                    ) : (
+                      <h6 className="bold">
+                        Relationship:{" "}
+                        <span>
+                          {user?.user?.relationship
+                            ? user?.user?.relationship
+                            : "Complicated"}
+                        </span>
+                      </h6>
+                    )}
+                    {loadingDetails ? (
+                      <Skeleton className="edit-profile" />
+                    ) : (
+                      <button
+                        className="edit-profile"
+                        onClick={() => setProfileActive(true)}
+                      >
+                        <EditIcon />
+                        Edit profile
+                      </button>
+                    )}
                   </div>
 
                   <h5 className="bold mt-5">User Friends</h5>
                   <div className="row mt-3">
-                    <div className="col-4">
-                      <img
-                        src="/images/pius.jpg"
-                        className="img-fluid profile-friends-img"
-                      />
-                      <h6>Ikeoba Pius</h6>
-                    </div>
-                    <div className="col-4 mt">
-                      <img
-                        src="/images/seid.jpg"
-                        className="img-fluid profile-friends-img"
-                      />
-                      <h6>Ahmed Seidhat</h6>
-                    </div>
-                    <div className="col-4">
-                      <img
-                        src="/images/ney.PNG"
-                        className="img-fluid profile-friends-img"
-                      />
-                      <h6>Neymar Jr</h6>
-                    </div>
-                    <div className="col-4 mt-3">
-                      <img
-                        src="/images/friend1.PNG"
-                        className="img-fluid profile-friends-img"
-                      />
-                      <h6>Steve Jobs</h6>
-                    </div>
-                    <div className="col-4 mt-3">
-                      <img
-                        src="/images/friend2.jpg"
-                        className="img-fluid profile-friends-img"
-                      />
-                      <h6>Elon Musk</h6>
-                    </div>
-                    <div className="col-4 mt-3">
-                      <img
-                        src="/images/friend3.jfif"
-                        className="img-fluid profile-friends-img"
-                      />
-                      <h6>Ikeoba Pius</h6>
-                    </div>
+                    {loadingFriends && (
+                      <>
+                        <SkeletonOnlineFriends />
+                        <SkeletonOnlineFriends />
+                        <SkeletonOnlineFriends />
+                        <SkeletonOnlineFriends />
+                        <SkeletonOnlineFriends />
+                        <SkeletonOnlineFriends />
+                      </>
+                    )}
+                    {friends?.map((friend) => {
+                      console.log(friend);
+                      return (
+                        <Link
+                          to={`/friend/${friend?._id}`}
+                          className="col-4 user-friend-div"
+                        >
+                          <div className="user-friend">
+                            <img
+                              src={
+                                friend?.profilePicture
+                                  ? friend?.profilePicture
+                                  : "/images/ava.png"
+                              }
+                              className="img-fluid profile-friends-imgg"
+                            />
+                            <b className="text-centerr ">{friend?.name}</b>
+                          </div>
+                        </Link>
+                      );
+                    })}
                   </div>
                 </div>
               </div>

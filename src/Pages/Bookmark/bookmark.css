@@ -1,0 +1,60 @@
+.sidebar-left-img {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+}
+
+.sidebar ul li span {
+  font-size: 1rem;
+  font-weight: 700;
+}
+.sidebar {
+  /* background-color: red; */
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+  position: sticky;
+  top: 60px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background-color: rgb(243, 243, 243) !important;
+}
+/* Thumb */
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: rgb(189, 186, 186) !important;
+  border-radius: 10px;
+}
+.sidebar:hover::-webkit-scrollbar {
+  width: 8px !important;
+}
+
+.sidebar ul li {
+  /* border: 2px solid blue; */
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.sidebar ul li:hover {
+  padding: 8px;
+  background-color: var(--color-info) !important;
+  transition: 0.5s ease;
+  color: var(--color-dark-text) !important;
+}
+
+.n-a {
+  cursor: not-allowed;
+  padding: 5px;
+  color: var(--color-dark-text);
+}
+.allowed {
+  color: var(--color-dark-text);
+  cursor: pointer;
+  padding: 5px;
+  transition: 0.3s ease;
+}
+.allowed:hover {
+  background-color: var(--color-info);
+  border-radius: 20px;
+
+  color: var(--color-dark-text);
+}

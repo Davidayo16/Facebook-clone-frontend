@@ -1,0 +1,42 @@
+.friend-card {
+  background-color: var(--color-white);
+  border-radius: 7px;
+}
+.friend-card-bottom {
+  padding: 10px;
+}
+.add-friend-btn {
+  background-color: var(--color-primary);
+  width: 100%;
+  padding: 9px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  transition: 0.5s ease;
+}
+.p {
+  color: var(--color-dark-text);
+}
+.add-friend-btn:hover {
+  transform: scale(0.98);
+  background-color: rgba(66, 96, 104, 0.7);
+}
+.card-img {
+  height: 250px;
+}
+.following {
+  background-color: var(--color-primary);
+}
+.unfollowing {
+  background-color: rgba(180, 180, 180, 0.7);
+}
+.view-profile {
+  background-color: rgb(124, 44, 44);
+  width: 100%;
+  padding: 9px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  transition: 0.5s ease;
+  margin-top: 1rem;
+}

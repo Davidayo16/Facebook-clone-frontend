@@ -5,11 +5,11 @@ import { useSelector, useDispatch } from "react-redux";
 
 const Layout = () => {
   return (
-      <>
-        <Header />
-        <Outlet />
-      </>
-    
+    <>
+      <Header />
+
+      <Outlet />
+    </>
   );
 };
 

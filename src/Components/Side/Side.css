@@ -1,5 +1,4 @@
 .home-wrapper {
-  color: var(--dark-text);
 }
 
 .sidebar-left-img {
@@ -18,6 +17,7 @@
   overflow-y: auto;
   position: sticky;
   top: 60px;
+  color: var(--color-dark-text);
 }
 
 .sidebar::-webkit-scrollbar-track {
@@ -53,11 +53,13 @@
   /* border: 2px solid blue; */
   padding: 8px;
   border-radius: 8px;
+  color: var(--color-dark-text);
   cursor: pointer;
 }
 .sidebar ul li:hover {
   padding: 8px;
-  background-color: rgb(202, 202, 202);
+  background-color: var(--color-info) !important;
+  color: var(--color-dark-text) !important;
   transition: 0.5s ease;
   color: black;
 }
@@ -67,13 +69,12 @@
 }
 
 .home-top {
-  background-color: var(--color-white) !important;
-  color: var(--color-dark-text);
+  background-color: white;
   padding: 0.8rem;
   border-radius: 5px;
 }
 .home-top-item {
-  border-bottom: 1px solid var(--color-info) !important;
+  border-bottom: 1px solid rgb(218, 214, 214);
   padding: 10px;
   margin-top: 0 !important;
   margin-bottom: 0.8rem;
@@ -85,24 +86,20 @@
   cursor: pointer;
 }
 .home-item-bottom:hover {
-  background-color: var(--color-info) !important;
+  background-color: rgb(241, 241, 241);
   transition: 0.5s ease;
 }
 .home-top-item input {
   width: 100%;
   background-color: var(--input-background);
-  color: var(--color-white-text);
   border: none;
-
   padding: 10px 15px;
   outline: none;
   border-radius: 15px;
 }
 .home-body {
-  background-color: var(--color-white) !important;
-  /* background-color: red !important; */
-  color: var(--color-dark-text);
-  box-shadow: -1px 3px 5px 0px var(--color-info) !important;
+  background-color: white;
+  box-shadow: -1px 3px 5px 0px rgba(204, 188, 188, 0.75);
   -webkit-box-shadow: -1px 3px 5px 0px rgba(204, 188, 188, 0.75);
   -moz-box-shadow: -1px 3px 5px 0px rgba(204, 188, 188, 0.75);
   padding: 10px;
@@ -112,23 +109,15 @@
   max-height: 500px;
 }
 .home-post-strip {
-  border-bottom: 1px solid var(--color-info) !important;
-  /* padding: 100px; */
-  /* background-color: red; */
+  border-bottom: 1px solid rgb(228, 225, 225);
+  padding: 10px;
 }
 .home-post-lcs {
   padding: 3px 16px;
   cursor: pointer;
-  background: none;
-  border: none;
-}
-.home-post-lcs[disabled] {
-  padding: 3px 16px;
-  cursor: not-allowed;
-  background: rgb(241, 241, 241);
 }
 .home-post-lcs:hover {
-  background-color: var(--color-info) !important;
+  background-color: rgb(241, 241, 241);
   transition: 0.5s ease;
 }
 .birthday-img {
@@ -142,13 +131,16 @@
 
 .home-right {
   position: sticky;
-  color: var(--color-dark-text);
   top: 60px;
   height: calc(100vh - 60px);
   overflow-y: auto;
 }
 .online-dot-container {
   position: relative;
+  color: var(--color-dark-text) !important;
+}
+.online-name {
+  color: var(--color-dark-text) !important;
 }
 .online-dot-container span {
   position: absolute;
@@ -156,7 +148,7 @@
   height: 10px;
   border: 1px solid white;
   border-radius: 50%;
-
+  background-color: green;
   top: 1px;
   right: 2px;
 }
@@ -168,11 +160,10 @@
 .underline {
   width: 100%;
   height: 1px;
-  background-color: var(--color-white-text) !important;
-  /* background-color: red; */
+  background-color: rgb(161, 161, 161);
 }
 .dot-icon:hover {
-  background-color: var(--color-info) !important;
+  background-color: rgb(241, 241, 241);
   padding: 3px;
   transition: 0.5s ease;
 }
@@ -196,60 +187,4 @@
 .comment-footerr.show {
   height: auto;
   transition: 0.8s ease-in-out;
-}
-.share-btn {
-  border: none;
-  padding: 3px 5px;
-  color: white;
-  background-color: rgb(25, 154, 177);
-  border-radius: 6px;
-  font-size: 10px;
-}
-.share-btn:hover {
-  border: none;
-  transform: scale(0.98);
-  background-color: rgb(26, 137, 156);
-}
-.share-btn[disabled]:hover {
-  cursor: not-allowed;
-}
-.share-btn[disabled] {
-  background-color: rgb(197, 196, 196);
-}
-.mind {
-  background-color: var(--color-info);
-  color: var(--color-dark-text);
-  border-radius: 20px;
-  padding: 10px;
-  display: flex;
-  align-items: center;
-}
-.mind:hover {
-  cursor: pointer;
-  background-color: var(--color-dark-light);
-}
-
-@media (max-width: 480px) {
-  .home-container {
-    width: 100% !important;
-  }
-}
-@media (max-width: 380px) {
-  .post-vid {
-    padding: 0 !important;
-    overflow-x: scroll;
-  }
-  .like-com {
-    padding: 0 !important;
-  }
-}
-
-@media (max-width: 280px) {
-  .home-item-bottom {
-    display: flex;
-    flex-direction: column;
-  }
-  .post-desc {
-    font-size: 13px;
-  }
 }

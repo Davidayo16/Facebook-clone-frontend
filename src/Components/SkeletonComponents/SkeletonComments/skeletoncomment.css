@@ -1,0 +1,35 @@
+/* SkeletonComment.css */
+.skeleton-comment-wrapper {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.skeleton-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #f2f2f2; /* light gray */
+}
+
+.skeleton-comment-text {
+  flex: 1;
+}
+
+.skeleton-name {
+  width: 100px;
+  height: 16px;
+  background-color: #f2f2f2; /* light gray */
+}
+
+.skeleton-date {
+  width: 70px;
+  height: 12px;
+  background-color: #f2f2f2; /* light gray */
+}
+
+.skeleton-comment {
+  width: 200px;
+  height: 12px;
+  background-color: #f2f2f2; /* light gray */
+}
