@@ -25,8 +25,10 @@ const App = () => {
     // Get the socket ID from localStorage if it exists
     const storedSocketId = localStorage.getItem("socketId");
     const socketInstance = storedSocketId
-      ? io("http://localhost:5000", { query: { socketId: storedSocketId } })
-      : io("http://localhost:5000"); // Replace with your server URL
+      ? io(process.env.REACT_APP_API_URL, {
+          query: { socketId: storedSocketId },
+        })
+      : io(process.env.REACT_APP_API_URL); // Replace with your server URL
 
     // Save the socket ID in localStorage
     localStorage.setItem("socketId", socketInstance.id);

@@ -61,6 +61,10 @@ const AddPost = ({ post }) => {
     setFile(null);
   };
 
+  const api = axios.create({
+    baseURL: process.env.REACT_APP_API_URL, // Replace with your environment variable name
+  });
+
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -102,7 +106,7 @@ const AddPost = ({ post }) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    axios
+    api
       .post("/api/post", newPost, config)
       .then((response) => {
         console.log("Post created successfully:", response.data);
