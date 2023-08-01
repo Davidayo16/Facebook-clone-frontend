@@ -115,7 +115,7 @@
 }
 .message-date {
   display: flex;
-
+  color: var(--color-dark-text);
   justify-content: flex-start;
 }
 .messanger.own .message-date {
@@ -351,5 +351,12 @@
     top: 60px;
     height: calc(100vh - 60px);
     overflow-y: auto;
+  }
+}
+
+@media (max-width: 380px) {
+  .message-text {
+    background-color: rgb(194, 194, 194);
+    max-width: 250px;
   }
 }
