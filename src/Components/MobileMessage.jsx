@@ -31,7 +31,7 @@ const MobileMessage = ({
   const openMsg = useSelector((state) => state.openMsg);
   const { isMsgActive } = openMsg;
   const dispatch = useDispatch();
-
+  const history = useNavigate();
   const toggleEmojiPicker = () => {
     setShowEmojiPicker((prev) => !prev);
   };
@@ -105,6 +105,47 @@ const MobileMessage = ({
 
     fetchMessagesData();
   }, [dispatch, currentChat, window.location.pathname]);
+
+  const [backButtonListenerAdded, setBackButtonListenerAdded] = useState(false);
+
+  useEffect(() => {
+    const handleBackButton = (event) => {
+      event.preventDefault();
+      dispatch({ type: MSG_NOT_ACTIVE }); // Close the modal
+
+      if (com.current) {
+        com.current.scrollIntoView({ behavior: "smooth" });
+      }
+
+      // Restore the previous history state to maintain a consistent history
+      history.replaceState(null, null, window.location.href);
+    };
+
+    const addBackButtonListener = () => {
+      if (!backButtonListenerAdded) {
+        window.addEventListener("popstate", handleBackButton);
+        setBackButtonListenerAdded(true);
+      }
+    };
+
+    const removeBackButtonListener = () => {
+      window.removeEventListener("popstate", handleBackButton);
+      setBackButtonListenerAdded(false);
+    };
+
+    // Handle the back button listener when the modal is active
+    if (isMsgActive) {
+      addBackButtonListener();
+    } else {
+      // If the modal is closed, remove the back button listener
+      removeBackButtonListener();
+    }
+
+    return () => {
+      // Cleanup: remove the back button listener when the component unmounts
+      removeBackButtonListener();
+    };
+  }, [dispatch, isMsgActive, history, backButtonListenerAdded]);
 
   return (
     <div className={isMsgActive ? "show msg-wrapper" : "msg-wrapper"}>

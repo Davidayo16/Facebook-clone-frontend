@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import { useLocation, useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
+import { MSG_NOT_ACTIVE } from "../Redux/Constants/MessageConstants";
 const Messanger = ({ messages, setMessages }) => {
   const [loading, setLoading] = useState(true); // Initialize loading state to true
   const userLogin = useSelector((state) => state.userLogin);
@@ -12,7 +13,9 @@ const Messanger = ({ messages, setMessages }) => {
   const { currentChat } = currentChatt;
   const dispatch = useDispatch();
   const history = useNavigate();
-  console.log("THIS IS THE CURRENT CHAT", currentChat);
+
+  const openMsg = useSelector((state) => state.openMsg);
+  const { isMsgActive } = openMsg;
 
   const formatTimeAgo = (yourDate) => {
     const now = moment();
@@ -69,9 +72,31 @@ const Messanger = ({ messages, setMessages }) => {
     fetchMessagesData();
   }, [dispatch, currentChat, window.location.pathname]);
   const mess = React.useRef(null);
+
   React.useEffect(() => {
     mess?.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  useEffect(() => {
+    const handleBackButton = (event) => {
+      event.preventDefault();
+      dispatch({ type: MSG_NOT_ACTIVE }); // Close the modal
+
+      if (mess.current) {
+        mess.current.scrollIntoView({ behavior: "smooth" });
+      }
+    };
+
+    if (isMsgActive) {
+      window.history.pushState(null, null, window.location.href);
+
+      window.addEventListener("popstate", handleBackButton);
+    }
+
+    return () => {
+      window.removeEventListener("popstate", handleBackButton);
+    };
+  }, [dispatch, isMsgActive]);
 
   // Render loading state if messages are being fetched
 

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
@@ -11,7 +12,6 @@ import NotificationsRoundedIcon from "@mui/icons-material/NotificationsRounded";
 import SportsEsportsRoundedIcon from "@mui/icons-material/SportsEsportsRounded";
 import MessageRoundedIcon from "@mui/icons-material/MessageRounded";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, MenuItem } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -50,11 +50,37 @@ const Header = () => {
       navigate(-1);
     }
   };
-  const [activeLink, setActiveLink] = React.useState("home"); // Set the default active link
+  const [activeLink, setActiveLink] = React.useState(""); // Set the default active link
 
   const handleIconClick = (link) => {
     setActiveLink(link);
   };
+
+  const handleActiveLink = () => {
+    const pathname = window.location.pathname;
+    if (pathname === "/") {
+      setActiveLink("home");
+    } else if (pathname === "/friends") {
+      setActiveLink("friends");
+    } else if (pathname === "/message") {
+      setActiveLink("message");
+    } else if (pathname.startsWith("/profile/")) {
+      setActiveLink(""); // For the dynamic profile route
+    } else if (pathname.startsWith("/friend/")) {
+      setActiveLink(""); // For the dynamic profile route
+    } else if (pathname === "/bookmark") {
+      setActiveLink("");
+    }
+    // Add more conditions for other links as needed
+  };
+
+  // Use the useLocation hook to update the active link when the pathname changes
+  const location = useLocation();
+
+  useEffect(() => {
+    handleActiveLink();
+  }, [location.pathname]);
+
   return (
     <>
       <div className="header-wrapper ">

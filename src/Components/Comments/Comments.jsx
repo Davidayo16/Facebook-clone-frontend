@@ -13,6 +13,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { FaFacebookMessenger } from "react-icons/fa";
 import { NOT_ACTIVE } from "../../Redux/Constants/CommentConstant";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   createPostReview,
   getOnePost,
@@ -24,7 +25,7 @@ import { POST_CREATE_REVIEW_RESET } from "../../Redux/Constants/PostConstants";
 
 const Comments = ({ post, loadingPost, userId }) => {
   const dispatch = useDispatch();
-
+  const history = useNavigate();
   const l = post?.likes?.length;
 
   const userLogin = useSelector((state) => state.userLogin);
@@ -129,6 +130,44 @@ const Comments = ({ post, loadingPost, userId }) => {
       com.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [com, comment, post]);
+
+  const [backButtonListenerAdded, setBackButtonListenerAdded] =
+    React.useState(false);
+
+  React.useEffect(() => {
+    const handleBackButton = (event) => {
+      event.preventDefault();
+      dispatch({ type: NOT_ACTIVE });
+
+      // Restore the previous history state to maintain a consistent history
+      history.replaceState(null, null, window.location.href);
+    };
+
+    const addBackButtonListener = () => {
+      if (!backButtonListenerAdded) {
+        window.addEventListener("popstate", handleBackButton);
+        setBackButtonListenerAdded(true);
+      }
+    };
+
+    const removeBackButtonListener = () => {
+      window.removeEventListener("popstate", handleBackButton);
+      setBackButtonListenerAdded(false);
+    };
+
+    // Handle the back button listener when the modal is active
+    if (isCommentActive) {
+      addBackButtonListener();
+    } else {
+      // If the modal is closed, remove the back button listener
+      removeBackButtonListener();
+    }
+
+    return () => {
+      // Cleanup: remove the back button listener when the component unmounts
+      removeBackButtonListener();
+    };
+  }, [dispatch, isCommentActive, history, backButtonListenerAdded]);
 
   return (
     <>
