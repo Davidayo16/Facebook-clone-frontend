@@ -88,16 +88,17 @@ const Header = () => {
           <div className="row ">
             <div className="col-md-4 col-12 header-left d-flex align-items-center justify-content-between gap-2 ">
               <Link to={"/"} className="d-sm-block d-none ">
-                <FacebookRoundedIcon
-                  style={{ color: "rgb(25, 154, 177)", fontSize: "3.5rem" }}
-                  className=""
+                <img
+                  className="img-fluid"
+                  src="/images/v.png"
+                  style={{ width: "35px" }}
                 />
               </Link>
               <Link to={"/"} className="d-sm-none d-block">
                 <img
                   className="img-fluid"
-                  src="/images/fb.svg"
-                  style={{ width: "80px" }}
+                  src="/images/v.png"
+                  style={{ width: "30px" }}
                 />
               </Link>
               <div className="d-flex search-containerr mt-2 mb-2 align-items-center d-sm-flex d-none">

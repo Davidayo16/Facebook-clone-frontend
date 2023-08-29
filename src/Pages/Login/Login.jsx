@@ -38,7 +38,7 @@ const Login = () => {
         <div className="container">
           <div className="row gx-5 justify-content-center align-items-center">
             <div className="col-md-6 col-12 d-md-none d-block mob-face ">
-              <img src="/images/facebook-7.png" className="img-fluid" />
+              <img src="/images/v.png" className="img-fluid" />
             </div>
             <div className="col-md-6 col-12 d-md-block d-none ">
               <img src="/images/log.png" className="img-fluid" />
@@ -47,12 +47,10 @@ const Login = () => {
               <div className="login-container">
                 <div className="login-card">
                   <div className="header-logo m-auto">
-                    <FacebookRoundedIcon
-                      style={{
-                        color: "rgb(25, 154, 177)",
-                        fontSize: "3.5rem",
-                      }}
-                      className="m-auto"
+                    <img
+                      className="img-fluid"
+                      src="/images/v.png"
+                      style={{ width: "30px" }}
                     />
                   </div>
                   <h2 className="text-center">Login</h2>
